@@ -1,24 +1,25 @@
 <?php
 class Calculadora{
-    
+    public $resultadoSuma;
 
-public function suma(int $num1, int $num2):int|float
+public function suma(array $numbers)
 {
-    return $num1 + $num2;
+    $this->resultadoSuma = array_sum($numbers);
+    return 
 }
 
 
-public function resta(int $num1, int $num2):int|float
+public function resta(array $numbers):int|float
 {
-    return $num1 - $num2;
+    return ;
 }
 
-public function multiplicacion(int $num1, int $num2):int|float
+public function multiplicacion(array $numbers):int|float
 {
     return $num1 * $num2;
 }
 
-public function division(int $num1, int $num2):int|float
+public function division(array $numbers):int|float
 {
     return $num1 / $num2;
 }

@@ -5,78 +5,34 @@ $calculadora = new Calculadora;
 $operation = $_REQUEST['inputData'] ?? '';
 
 if($operation  <> ''){
-  // echo $operation;
   switch($operation){
   
       case str_contains($operation, '+'):
-        $signPosition = strpos($operation, '+');
-        $num1 = '';
-        $num2 = '';
-
-        for($i = 0; $i<strlen($operation); $i++){
-          if($i < $signPosition){
-            $num1 .= $operation[$i];
-          }
-          else{
-            $num2 .= $operation[$i] === '+' ? '' : $operation[$i];
-          }
-
-          if($operation[$signPosition] <> $operation[$signPosition]){
-
-          }
-
-        }
-        echo $num1;
-        echo $num2;
-        $resultado =  $calculadora->suma(intval($num1), intval($num2));
+        $numbers = explode('+', $operation);
+        $numbers = array_map('intval', $numbers);
+        
+        $resultado = $calculadora->suma($numbers);
         break;
   
       case str_contains($operation, '-'):
-        $signPosition = strpos($operation, '-');
-        $num1 = '';
-        $num2 = '';
-
-        for($i = 0; $i < strlen($operation); $i++){
-          if($i < $signPosition){
-            $num1 .= $operation[$i];
-          }
-          else{
-            $num2 .= $operation[$i] === '-' ? '' : $operation[$i];
-          }
-        }
-        $resultado =  $calculadora->resta(intval($num1), intval($num2));
+        $numbers = explode('-', $operation);
+        $numbers = array_map('intval', $numbers);
+        
+        $resultado = $calculadora->resta($numbers);
         break;
   
       case str_contains($operation, '*'):
-        $signPosition = strpos($operation, '*');
-        $num1 = '';
-        $num2 = '';
-
-        for($i = 0; $i < strlen($operation); $i++){
-          if($i < $signPosition){
-            $num1 .= $operation[$i];
-          }
-          else{
-            $num2 .= $operation[$i] === '*' ? '' : $operation[$i];
-          }
-        }
-        $resultado =  $calculadora->multiplicacion(intval($num1), intval($num2));
+        $numbers = explode('*', $operation);
+        $numbers = array_map('intval', $numbers);
+        
+        $resultado = $calculadora->multiplicacion($numbers);
         break;
-  
-      case str_contains($operation, '/'):
-        $signPosition = strpos($operation, '/');
-        $num1 = '';
-        $num2 = '';
 
-        for($i = 0; $i<strlen($operation); $i++){
-          if($i < $signPosition){
-            $num1 .= $operation[$i];
-          }
-          else{
-            $num2 .= $operation[$i ]=== '/' ? '' : $operation[$i];
-          }
-        }
-        $resultado =  $calculadora->division(intval($num1), intval($num2));
+      case str_contains($operation, '/'):
+        $numbers = explode('/', $operation);
+        $numbers = array_map('intval', $numbers);
+        
+        $resultado = $calculadora->division($numbers);
         break;
   
   
