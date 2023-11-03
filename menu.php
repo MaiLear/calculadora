@@ -1,43 +1,44 @@
 <?php
-include_once('clases/calculadora.php');
-$calculadora = new Calculadora;
+include('operaciones.php');
+class Menu{
 
-$operation = $_REQUEST['inputData'] ?? '';
+  public $values;
+  public $operation;
 
-if($operation  <> ''){
-  switch($operation){
-  
-      case str_contains($operation, '+'):
-        $numbers = explode('+', $operation);
-        $numbers = array_map('intval', $numbers);
-        
-        $resultado = $calculadora->suma($numbers);
-        break;
-  
-      case str_contains($operation, '-'):
-        $numbers = explode('-', $operation);
-        $numbers = array_map('intval', $numbers);
-        
-        $resultado = $calculadora->resta($numbers);
-        break;
-  
-      case str_contains($operation, '*'):
-        $numbers = explode('*', $operation);
-        $numbers = array_map('intval', $numbers);
-        
-        $resultado = $calculadora->multiplicacion($numbers);
-        break;
-
-      case str_contains($operation, '/'):
-        $numbers = explode('/', $operation);
-        $numbers = array_map('intval', $numbers);
-        
-        $resultado = $calculadora->division($numbers);
-        break;
-  
-  
+  public function __construct($data){
+    $this->values = $data;
+    $this->operation = new Operaciones;
   }
-}
+  
+  public function menu(){
+   
+      switch ($this->values) {
+        case str_contains($this->values, '+'):
+         echo $this->operation->make_suma($this->values);
+          break;
+    
+        case str_contains($this->values, '-'):
+         echo $this->operation->make_resta($this->values);
+          break;
+    
+        case str_contains($this->values, '*'):
+          echo $this->operation->make_multi($this->values);
+          break;
+    
+        case str_contains($this->values, '/'):
+         echo $this->operation->make_div($this->values);
+          break;
+      }
+    
+  }
+    
+  }
+
+  $menu = new Menu( $_REQUEST['inputData'] ?? '');
+
+  $calculadora= new Calculadora;
+
+?>
 
 
 ?>
@@ -67,7 +68,7 @@ if($operation  <> ''){
     >
       <div class="card w-50 justify-content-center">
         <form
-          action="index.php"
+          action="menu.php"
           method="post"
         >
           <div class="card-header">
@@ -79,7 +80,7 @@ if($operation  <> ''){
               value=""
               readonly
             />
-            <input type="text" class="w-25 form-control my-2" value="<?php echo $resultado ?? '' ?>" disabled  />
+            <input type="text" class="w-25 form-control my-2" value="<?php echo $calculadora->resultado ?? '' ?>" disabled  />
           </div>
           <div class="card-body row row-cols-4">
             <button
